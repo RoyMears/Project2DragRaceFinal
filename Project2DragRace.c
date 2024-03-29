@@ -3,10 +3,10 @@
 // Authors: Roy Mears, Ivan Martinez, James Henry
 // Date: 3/29/2024
 // System Requirements:
-// A system based on a drag race. A ëChristmas Treeí is the light signal that drivers use to
+// A system based on a drag race. A ‚ÄòChristmas Tree‚Äô is the light signal that drivers use to
 // determine when to accelerate (ie start the race), which is simulated by our LEDs. A track has
-// multiple sensors to determine if a car is in the proper position (ìstagedî), simulated by pressing
-// our ìlane sensorî buttons, one per lane (left lane and right lane). Our project will determine the
+// multiple sensors to determine if a car is in the proper position (‚Äústaged‚Äù), simulated by pressing
+// our ‚Äúlane sensor‚Äù buttons, one per lane (left lane and right lane). Our project will determine the
 // winner based on who releases their button fastest after the green LEDs are lit. A reset button will
 // be used to override the state machine current state and reset the board back to the initial state
 // (similar to the reset button on the LaunchPad). We use PLL to set the system clock to be 25MHz.
@@ -35,7 +35,7 @@ Hardware Design
 		rightYellow1 - PC4
 		leftYellow1  - PC5
 		rightYellow2 - PC6
-		rightYellow2 - PC7
+		leftYellow2 - PC7
 		
  	PortE is for reset 
 		reset - PE0
@@ -103,8 +103,8 @@ bothWin
 STyp DraGrace_FSM[11] = { // input 11, 10, 01, 00
 	{0xFF, 2, {wait, wait, wait, wait}},	  																	 // initialize state, all LEDs on, SysTick Timer restarts      		
 	{0x00, 1, {wait, wait, wait, yellow1}},																		 // waiting state, all LEDs off									
-	{0xC0, 1, {falseStartBoth, falseStartLeft, falseStartRight, yellow2}},		 // countdown yellow1 state, yellow1L & yellow1R LEDs on																			
-	{0x30, 1, {falseStartBoth, falseStartLeft, falseStartRight, go}},			     // countdown yellow2 state, yellow2L & yellow2R LEDs on
+	{0xC0, 1, {falseStartBoth, falseStartLeft, falseStartRight, yellow2}},		 	// countdown yellow2 state, yellow2L & yellow2R LEDs on																		
+	{0x30, 1, {falseStartBoth, falseStartLeft, falseStartRight, go}},			     // countdown yellow1 state, yellow1L & yellow1R LEDs on
 	{0x0C, 1, {bothWin, winLeft, winRight, go}},													     // go state, GreenLeft & Gr LEDs on
 	{0x02, 2, {wait, wait, wait, wait}},																	     // false start left, redLeft LED on
 	{0x01, 2, {wait, wait, wait, wait}},																	     // false start right, redRight LED on
